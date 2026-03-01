@@ -1,0 +1,55 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Allow manual trigger from GitHub Actions UI
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one deployment at a time; cancel in-progress if a new push comes in
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy static site to GitHub Pages
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Build step: this is a pure static site — no npm, no bundler.
+      # We copy /pages and /assets into a _site/ directory so that
+      # GitHub Pages serves pages/ as the root (index.html accessible
+      # at the staging URL root, not at /pages/).
+
+      - name: Assemble static site
+        run: |
+          mkdir -p _site
+          # Copy pages/ contents to site root (pages become top-level URLs)
+          cp -r pages/. _site/
+          # Copy assets alongside (pages reference ../assets/... which resolves
+          # to /assets/... at the root)
+          cp -r assets _site/assets
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

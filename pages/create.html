@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create path — build a practical AI tool or prompt for evaluation work. Choose from Prompt Lab, Custom Chatbot, or Vibe-Coding Studio.">
+  <title>Create Path — AEA/MTI Hackathon 2</title>
+  <link rel="stylesheet" href="../assets/brand/brand.css">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       HEADER / NAV
+       ====================================================================== -->
+  <header class="site-header">
+    <div class="container">
+      <div class="cobrand-logos">
+        <a href="index.html" class="logo-link logo-link--merl" aria-label="MERL Tech — Home">
+          <img src="../assets/brand/logo_merl-tech-4.svg" alt="MERL Tech logo">
+        </a>
+        <div class="cobrand-divider" aria-hidden="true"></div>
+        <a href="https://www.eval.org" class="logo-link logo-link--aea" aria-label="American Evaluation Association" target="_blank" rel="noopener">
+          <img src="../assets/brand/AEA letters.png" alt="American Evaluation Association logo">
+        </a>
+      </div>
+
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav">
+        <span class="hamburger" aria-hidden="true"></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="critique.html">Critique</a>
+        <a href="create.html" class="active">Create</a>
+        <a href="collab.html">Collab</a>
+        <a href="gallery.html" class="nav-cta">Open Gallery</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Breadcrumb / back nav -->
+    <div class="back-nav-wrap">
+      <div class="container">
+        <a href="index.html" class="back-nav">
+          <span aria-hidden="true">&larr;</span> All paths
+        </a>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         PATH HERO
+         ==================================================================== -->
+    <section class="path-hero path-hero--create" aria-labelledby="path-title">
+      <div class="container">
+        <p class="path-hero__eyebrow">Hackathon 2 &mdash; Path 2 of 3</p>
+        <span class="path-hero__icon" aria-hidden="true">&#10024;</span>
+        <h1 class="path-hero__title" id="path-title">Create</h1>
+        <p class="path-hero__tagline">Build a practical AI tool or prompt for evaluation work</p>
+        <div class="path-hero__meta">
+          <span><strong>&#128336;</strong> 15–30 minutes</span>
+          <span>&middot;</span>
+          <span>3 options to choose from</span>
+          <span>&middot;</span>
+          <span>Free AI tool of your choice</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         OVERVIEW
+         ==================================================================== -->
+    <section class="prose-section section--light" aria-labelledby="overview-heading">
+      <div class="container">
+        <div class="prose-section__content">
+          <h2 class="section-heading" id="overview-heading">What this path involves</h2>
+          <p>
+            The Create path is for practitioners who want to make something tangible with AI. You'll design, test, and share a prompt, chatbot, or small tool that has real utility in evaluation contexts — not a toy, but not enterprise software either.
+          </p>
+          <p>
+            The goal is to produce a working artifact that other evaluators could use or adapt. Your submission goes to the public gallery as a reusable community resource.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         OPTION CARDS
+         ==================================================================== -->
+    <section class="options-section" aria-labelledby="options-heading">
+      <div class="container">
+        <h2 class="section-heading" id="options-heading">Choose your option</h2>
+
+        <div class="option-cards">
+
+          <!-- Option 1: Prompt Lab -->
+          <article class="option-card option-card--create" aria-labelledby="opt1-name">
+            <header>
+              <div class="option-card__time">&#128336; 10–20 min</div>
+              <h3 class="option-card__name" id="opt1-name">Prompt Lab</h3>
+            </header>
+
+            <p class="option-card__desc">
+              Choose one of the five structured challenges below. Each one gives you a specific evaluation task to tackle through prompt engineering — no coding, just craft.
+            </p>
+
+            <div>
+              <p style="font-size: var(--text-sm); font-weight: 600; margin-bottom: var(--space-xs);">Steps:</p>
+              <ol class="option-card__steps">
+                <li>Pick one challenge from the list below.</li>
+                <li>Write a prompt (or series of prompts) to accomplish the challenge task in any free AI tool.</li>
+                <li>Test it, iterate, refine.</li>
+                <li>Save your best prompt + the AI's output to share in your submission.</li>
+              </ol>
+            </div>
+
+            <div class="option-card__include">
+              <p class="option-card__include-title">Include in your submission:</p>
+              <ul>
+                <li>Which challenge you chose</li>
+                <li>Your final prompt (paste it)</li>
+                <li>The AI's best output (paste or link)</li>
+                <li>A 140-character reflection on what worked</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Option 2: Custom Chatbot -->
+          <article class="option-card option-card--create" aria-labelledby="opt2-name">
+            <header>
+              <div class="option-card__time">&#128336; 20–30 min</div>
+              <h3 class="option-card__name" id="opt2-name">Custom Chatbot: Build a Tiny Helper</h3>
+            </header>
+
+            <p class="option-card__desc">
+              Use a no-code AI platform (Claude, ChatGPT, or similar) to build a custom chatbot with a system prompt tailored to a specific evaluation task — a survey QA assistant, an ethics check bot, or something you need right now.
+            </p>
+
+            <div>
+              <p style="font-size: var(--text-sm); font-weight: 600; margin-bottom: var(--space-xs);">Steps:</p>
+              <ol class="option-card__steps">
+                <li>Identify an evaluation task where a chatbot would help. Keep it narrow — "helps check whether interview questions are leading" is better than "helps with evaluation."</li>
+                <li>Write a system prompt that defines the bot's role, constraints, and how it should handle edge cases.</li>
+                <li>Test it: throw three realistic user inputs at it and see how it responds. Iterate the system prompt as needed.</li>
+                <li>Document what you built: the system prompt + 2–3 example exchanges.</li>
+              </ol>
+            </div>
+
+            <div class="option-card__include">
+              <p class="option-card__include-title">Include in your submission:</p>
+              <ul>
+                <li>The bot's purpose (one sentence)</li>
+                <li>Your system prompt</li>
+                <li>Link to the published bot or pasted example exchanges</li>
+                <li>A 140-character reflection</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Option 3: Vibe-Coding Studio -->
+          <article class="option-card option-card--create" aria-labelledby="opt3-name">
+            <header>
+              <div class="option-card__time">&#128336; 20–30 min</div>
+              <h3 class="option-card__name" id="opt3-name">Vibe-Coding Studio</h3>
+            </header>
+
+            <p class="option-card__desc">
+              Use an AI-assisted coding environment (Claude Artifacts, ChatGPT Canvas, or similar) to build a small tool — a data viz, a rubric generator, a checklist — without writing traditional code. Describe what you want; let the AI build it.
+            </p>
+
+            <div>
+              <p style="font-size: var(--text-sm); font-weight: 600; margin-bottom: var(--space-xs);">Steps:</p>
+              <ol class="option-card__steps">
+                <li>Pick a concrete tool: a rubric template, a data cleaning helper, a visual summary of a theory of change, etc.</li>
+                <li>Describe what you want to an AI tool in plain language. Be specific about inputs, outputs, and format.</li>
+                <li>Iterate: ask the AI to fix, improve, or extend what it built. Note what worked and what required multiple attempts.</li>
+                <li>Publish or export your artifact and grab a shareable link.</li>
+              </ol>
+            </div>
+
+            <div class="option-card__include">
+              <p class="option-card__include-title">Include in your submission:</p>
+              <ul>
+                <li>What you built and why it's useful</li>
+                <li>A link to the published artifact</li>
+                <li>Key prompts you used to get there</li>
+                <li>A 140-character reflection</li>
+              </ul>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         PROMPT LAB CHALLENGES
+         ==================================================================== -->
+    <section class="prompt-lab-section" aria-labelledby="challenges-heading">
+      <div class="container">
+        <p class="section-label">For the Prompt Lab option</p>
+        <h2 class="section-heading" id="challenges-heading">Five Prompt Lab Challenges</h2>
+        <p class="prompt-lab-intro">
+          Pick any one of the five challenges below. Each is completable in 10–15 minutes using any free AI tool (ChatGPT, Claude, Gemini, etc.). No prior AI experience required — the challenge is in crafting the prompt, not the technology.
+        </p>
+
+        <div class="challenge-list">
+
+          <!-- Challenge 1 -->
+          <!-- PLACEHOLDER: challenges below are real, usable content — update descriptions, intents, or times as needed -->
+          <article class="challenge-card" aria-labelledby="c1-name">
+            <div class="challenge-card__header">
+              <h3 class="challenge-card__name" id="c1-name">Challenge 1: The Plain-Language Translator</h3>
+              <span class="challenge-card__time">~10 min</span>
+            </div>
+            <p class="challenge-card__desc">
+              Take a dense, jargon-heavy evaluation finding (from a real report or one you compose) and craft a prompt that gets an AI to rewrite it for a non-specialist community audience. The challenge is to instruct the AI to preserve the core finding while removing barriers to understanding — without dumbing it down or introducing errors.
+            </p>
+            <p class="challenge-card__intent">
+              <strong>Intent:</strong> A good prompt will specify the target audience clearly, set a reading-level expectation, ask the AI to flag any hedging it removes, and produce plain prose — not bullet points.
+            </p>
+          </article>
+
+          <!-- Challenge 2 -->
+          <article class="challenge-card" aria-labelledby="c2-name">
+            <div class="challenge-card__header">
+              <h3 class="challenge-card__name" id="c2-name">Challenge 2: Interview Question Architect</h3>
+              <span class="challenge-card__time">~12 min</span>
+            </div>
+            <p class="challenge-card__desc">
+              You're given a two-sentence theory of change for a youth workforce program (or write your own). Craft a prompt to generate a stakeholder interview question set — one set for program staff and one for participants. The AI should produce open-ended, culturally aware questions directly tied to the theory of change's key assumptions.
+            </p>
+            <p class="challenge-card__intent">
+              <strong>Intent:</strong> A strong prompt will specify the stakeholder roles, the number of questions, the methodological grounding (semi-structured interview), and ask the AI to annotate which assumption each question probes.
+            </p>
+          </article>
+
+          <!-- Challenge 3 -->
+          <article class="challenge-card" aria-labelledby="c3-name">
+            <div class="challenge-card__header">
+              <h3 class="challenge-card__name" id="c3-name">Challenge 3: The Nuance Keeper</h3>
+              <span class="challenge-card__time">~10 min</span>
+            </div>
+            <p class="challenge-card__desc">
+              Paste a short excerpt of qualitative data — five interview snippets on a contentious topic — into an AI tool and craft a prompt that gets it to summarize the data without flattening divergent perspectives or over-generalizing from one or two voices. You can use the sample data provided below, or bring your own.
+            </p>
+            <p class="challenge-card__intent">
+              <strong>Intent:</strong> A good prompt will instruct the AI to surface both dominant themes and outliers, preserve participant voice through direct quotes, and explicitly flag where it is uncertain or where data is thin.
+            </p>
+          </article>
+
+          <!-- Challenge 4 -->
+          <article class="challenge-card" aria-labelledby="c4-name">
+            <div class="challenge-card__header">
+              <h3 class="challenge-card__name" id="c4-name">Challenge 4: The AI Skeptic</h3>
+              <span class="challenge-card__time">~15 min</span>
+            </div>
+            <p class="challenge-card__desc">
+              An AI tool has produced a program recommendation based on evaluation data (sample provided below). Your task: craft a prompt that gets the same AI to critique its own recommendation — identifying weak assumptions, missing contextual factors, and at least two potential unintended consequences of acting on it.
+            </p>
+            <p class="challenge-card__intent">
+              <strong>Intent:</strong> A strong prompt will assign the AI a specific skeptical role (e.g., "act as a program officer who is skeptical of this finding"), set a minimum number of risks to identify, and ask it to rank them by severity. Bonus: prompt the AI to suggest what additional evidence would change its assessment.
+            </p>
+          </article>
+
+          <!-- Challenge 5 -->
+          <article class="challenge-card" aria-labelledby="c5-name">
+            <div class="challenge-card__header">
+              <h3 class="challenge-card__name" id="c5-name">Challenge 5: Ethical Use Statement Drafter</h3>
+              <span class="challenge-card__time">~12 min</span>
+            </div>
+            <p class="challenge-card__desc">
+              Your organization is beginning to use AI tools in an evaluation engagement for a government client. Craft a prompt that helps you draft a brief ethical use statement — one you could actually share with the client — covering data privacy, informed consent, attribution, and known AI limitations relevant to evaluation contexts.
+            </p>
+            <p class="challenge-card__intent">
+              <strong>Intent:</strong> A good prompt will produce a statement that is honest about AI's role in the work, accessible to a non-technical audience, grounded in specific evaluation ethics (e.g., AEA ethics guidelines), and avoids both over-promising and reflexive disclaimers that say nothing.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SUBMISSION CHECKLIST
+         ==================================================================== -->
+    <section class="checklist-section checklist-section--create" aria-labelledby="checklist-heading">
+      <div class="container">
+        <div class="checklist-box">
+          <h2 class="section-heading" id="checklist-heading">Before you submit</h2>
+          <p style="color: var(--color-muted); margin-bottom: var(--space-lg);">Every Create submission needs these four things:</p>
+          <ul class="checklist-items">
+            <li class="checklist-item">
+              <div class="checklist-item__check" aria-hidden="true"></div>
+              <span><strong>One-line claim</strong> — what did you make or prove? (max 140 characters)</span>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-item__check" aria-hidden="true"></div>
+              <span><strong>Evidence of work</strong> — your prompt(s), system prompt, or description of what you built</span>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-item__check" aria-hidden="true"></div>
+              <span><strong>Link (if applicable)</strong> — a shareable link to your artifact, bot, or AI output</span>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-item__check" aria-hidden="true"></div>
+              <span><strong>Ethics check</strong> — confirm your submission contains no PII or real client data</span>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-item__check" aria-hidden="true"></div>
+              <span><strong>140-character reflection</strong> — what worked, what surprised you, or what you'd do differently</span>
+            </li>
+          </ul>
+          <a href="form-critique-create.html" class="btn btn--create btn--lg">Submit your Create entry &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="container">
+      <div class="site-footer__grid">
+
+        <div class="site-footer__brand">
+          <div class="site-footer__cobrand">
+            <img src="../assets/brand/logo_merl-tech-4.svg" alt="MERL Tech logo">
+            <div class="site-footer__cobrand-divider" aria-hidden="true"></div>
+            <img src="../assets/brand/AEA letters.png" alt="American Evaluation Association logo">
+          </div>
+          <p class="site-footer__tagline">
+            AEA/MTI Hackathon 2: Critique • Create • Collab<br>
+            A virtual event for evaluation practitioners.
+          </p>
+        </div>
+
+        <div>
+          <p class="site-footer__heading">Paths</p>
+          <ul class="site-footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="critique.html">Critique</a></li>
+            <li><a href="create.html">Create</a></li>
+            <li><a href="collab.html">Collab</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="site-footer__heading">Connect</p>
+          <ul class="site-footer__links">
+            <li><a href="gallery.html">Open Gallery</a></li>
+            <!-- PLACEHOLDER: replace [SLACK_URL] with your Slack channel URL -->
+            <li><a href="[SLACK_URL]" target="_blank" rel="noopener">Join the Slack</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="site-footer__bottom">
+        Co-hosted by the American Evaluation Association &amp; MTI/MERL Tech.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.nav-toggle');
+    const nav = document.getElementById('site-nav');
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      nav.classList.toggle('is-open');
+    });
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        nav.classList.remove('is-open');
+      });
+    });
+  </script>
+
+</body>
+</html>

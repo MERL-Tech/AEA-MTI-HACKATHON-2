@@ -190,6 +190,56 @@ ul, ol {
   width: auto;
 }
 
+/* Co-brand logo lockup */
+.cobrand-logos {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-shrink: 0;
+}
+
+.cobrand-logos .logo-link img {
+  height: 32px; /* slightly shorter so both logos sit comfortably */
+}
+
+/* AEA logo is wider, cap it so it doesn't dominate */
+.cobrand-logos .logo-link--aea img {
+  height: 28px;
+  max-width: 140px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.cobrand-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--color-border);
+  flex-shrink: 0;
+}
+
+/* Footer co-brand logos — both inverted white */
+.site-footer__cobrand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-md);
+}
+
+.site-footer__cobrand img {
+  height: 28px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+}
+
+.site-footer__cobrand-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255,255,255,0.2);
+  flex-shrink: 0;
+}
+
 /* Nav toggle (hamburger — mobile only) */
 .nav-toggle {
   display: flex;
@@ -826,10 +876,9 @@ ul, ol {
 }
 
 .site-footer__brand img {
-  height: 36px;
+  height: 32px;
   width: auto;
   filter: brightness(0) invert(1);
-  margin-bottom: var(--space-md);
 }
 
 .site-footer__tagline {
