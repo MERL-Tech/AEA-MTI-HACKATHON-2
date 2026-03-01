@@ -136,7 +136,7 @@ function parseCollabRow(cols) {
 // ============================================================================
 
 async function fetchSheet(url) {
-  const cacheBust = `?t=${Date.now()}`;
+  const cacheBust = `&t=${Date.now()}`;
   const response = await fetch(url + cacheBust);
   if (!response.ok) throw new Error(`HTTP ${response.status} fetching ${url}`);
   return response.text();
