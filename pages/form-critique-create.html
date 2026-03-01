@@ -138,7 +138,7 @@
 
             <!-- One-line need / claim -->
             <div class="form-group">
-              <label for="field-claim">
+              <label for="field-claim" id="claim-label">
                 One-line need or claim <span class="required" aria-label="required">*</span>
               </label>
               <input
@@ -147,7 +147,8 @@
                 name="claim"
                 required
                 maxlength="140"
-                placeholder="e.g., AI-generated interview questions consistently omit power-dynamics probes."
+                placeholder="e.g. I need a prompt that helps me simplify jargon-heavy findings"
+                aria-label="One-line need or claim"
                 aria-describedby="claim-counter claim-hint"
               >
               <div style="display:flex; justify-content:space-between; align-items:flex-start; gap: 0.5rem;">
@@ -323,15 +324,37 @@
       'Vibe-Coding Studio':               'Key prompts you used and description of what you built',
     };
 
-    const form     = document.getElementById('submission-form');
-    const pathSel  = document.getElementById('field-path');
-    const optSel   = document.getElementById('field-option');
-    const linkGrp  = document.getElementById('link-group');
-    const evLabel  = document.getElementById('evidence-label');
-    const evHint   = document.getElementById('evidence-hint');
-    const submitBtn= document.getElementById('submit-btn');
-    const successEl= document.getElementById('form-success');
-    const errorEl  = document.getElementById('form-error');
+    // Claim field label + placeholder — Critique options only
+    const CLAIM_FIELDS = {
+      'Red-Team a Claim': {
+        label:       'The claim you\'re red-teaming',
+        placeholder: 'e.g. AI can reliably summarize qualitative interview data',
+      },
+      'AEA Competencies Remix': {
+        label:       'The competency you\'re remixing',
+        placeholder: 'e.g. Competency 5: Data collection, analysis, and interpretation',
+      },
+      'Case Snap: Failure or Success': {
+        label:       'The case you\'re describing',
+        placeholder: 'e.g. AI-generated coding in a youth program evaluation',
+      },
+    };
+    const CLAIM_DEFAULT = {
+      label:       'One-line need or claim',
+      placeholder: 'e.g. I need a prompt that helps me simplify jargon-heavy findings',
+    };
+
+    const form       = document.getElementById('submission-form');
+    const pathSel    = document.getElementById('field-path');
+    const optSel     = document.getElementById('field-option');
+    const linkGrp    = document.getElementById('link-group');
+    const evLabel    = document.getElementById('evidence-label');
+    const evHint     = document.getElementById('evidence-hint');
+    const claimInput = document.getElementById('field-claim');
+    const claimLabelEl = document.getElementById('claim-label');
+    const submitBtn  = document.getElementById('submit-btn');
+    const successEl  = document.getElementById('form-success');
+    const errorEl    = document.getElementById('form-error');
     const errorDetail = document.getElementById('form-error-detail');
 
     // ── Dynamic option dropdown ───────────────────────────────────────────────
@@ -352,18 +375,27 @@
       // Show/hide the link field (Create path only)
       linkGrp.style.display = path === 'Create' ? '' : 'none';
 
-      // Update evidence label
+      // Reset dynamic labels (option not yet chosen)
       updateEvidenceLabel(null);
+      updateClaimField(path, null);
     });
 
     optSel.addEventListener('change', () => {
       updateEvidenceLabel(optSel.value);
+      updateClaimField(pathSel.value, optSel.value);
     });
 
     function updateEvidenceLabel(option) {
       const labelBase = EVIDENCE_LABELS[option] || 'Evidence of work';
       // Keep the required span
       evLabel.innerHTML = `${labelBase} <span class="required" aria-label="required">*</span>`;
+    }
+
+    function updateClaimField(path, option) {
+      const cfg = (path === 'Critique' && CLAIM_FIELDS[option]) ? CLAIM_FIELDS[option] : CLAIM_DEFAULT;
+      claimLabelEl.innerHTML = `${cfg.label} <span class="required" aria-label="required">*</span>`;
+      claimInput.placeholder = cfg.placeholder;
+      claimInput.setAttribute('aria-label', cfg.label);
     }
 
     // Hide link field initially (shown only for Create path)
