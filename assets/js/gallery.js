@@ -13,13 +13,13 @@
 // CONFIGURATION — update these after deployment
 // ============================================================================
 
-// PLACEHOLDER: replace [SHEET_CSV_URL_CRITIQUE_CREATE] with the CSV publish URL for Sheet 1 (Critique/Create)
+// PLACEHOLDER: replace https://docs.google.com/spreadsheets/d/e/2PACX-1vQtSDpjQqmc5_9FpqUhmw4oaZ6iUhZdmoGZtsUifVXvjFs_VELMUfg_yNSNflo49QX_PmQ7FCmusjf-/pub?gid=420690685&single=true&output=csv with the CSV publish URL for Sheet 1 (Critique/Create)
 // To get this URL: File → Share → Publish to web → Sheet 1 → CSV → Copy link
-const SHEET_CSV_URL_CRITIQUE_CREATE = '[SHEET_CSV_URL_CRITIQUE_CREATE]';
+const SHEET_CSV_URL_CRITIQUE_CREATE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQtSDpjQqmc5_9FpqUhmw4oaZ6iUhZdmoGZtsUifVXvjFs_VELMUfg_yNSNflo49QX_PmQ7FCmusjf-/pub?gid=420690685&single=true&output=csv';
 
-// PLACEHOLDER: replace [SHEET_CSV_URL_COLLAB] with the CSV publish URL for Sheet 2 (Collab)
+// PLACEHOLDER: replace https://docs.google.com/spreadsheets/d/e/2PACX-1vQtSDpjQqmc5_9FpqUhmw4oaZ6iUhZdmoGZtsUifVXvjFs_VELMUfg_yNSNflo49QX_PmQ7FCmusjf-/pub?gid=2115396050&single=true&output=csv with the CSV publish URL for Sheet 2 (Collab)
 // To get this URL: File → Share → Publish to web → Sheet 2 → CSV → Copy link
-const SHEET_CSV_URL_COLLAB = '[SHEET_CSV_URL_COLLAB]';
+const SHEET_CSV_URL_COLLAB = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQtSDpjQqmc5_9FpqUhmw4oaZ6iUhZdmoGZtsUifVXvjFs_VELMUfg_yNSNflo49QX_PmQ7FCmusjf-/pub?gid=2115396050&single=true&output=csv';
 
 // How often to poll for new submissions (milliseconds)
 const REFRESH_INTERVAL_MS = 60_000;
