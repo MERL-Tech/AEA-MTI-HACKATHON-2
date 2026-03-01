@@ -229,8 +229,18 @@ ul, ol {
 .site-footer__cobrand img {
   height: 28px;
   width: auto;
+  opacity: 0.85;
+}
+
+/* AEA logo is dark on transparent — invert to white for dark footer */
+.site-footer__cobrand .logo-aea {
   filter: brightness(0) invert(1);
-  opacity: 0.8;
+}
+
+/* MTI white logo is already white — no filter, just height cap */
+.site-footer__cobrand .logo-mti {
+  height: 24px;
+  max-width: 180px;
 }
 
 .site-footer__cobrand-divider {
@@ -878,7 +888,6 @@ ul, ol {
 .site-footer__brand img {
   height: 32px;
   width: auto;
-  filter: brightness(0) invert(1);
 }
 
 .site-footer__tagline {
