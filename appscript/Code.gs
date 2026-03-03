@@ -4,9 +4,10 @@
  * Handles POST requests from all three submission forms, appends rows to the
  * appropriate sheet, and returns a JSON response.
  *
- * Sheet 1 (name: "Critique"): Critique path submissions
- * Sheet 2 (name: "Create"):   Create path submissions
- * Sheet 3 (name: "Collab"):   Collab path submissions
+ * Sheet 1 (name: "Critique"):  Critique path submissions
+ * Sheet 2 (name: "Create"):    Create path submissions
+ * Sheet 3 (name: "Collab"):    Collab path submissions
+ * Sheet 4 (name: "HotTakes"):  Hot Take Wall submissions
  *
  * Deploy as: Execute as Me / Who has access: Anyone
  */
@@ -15,6 +16,7 @@
 var SHEET_CRITIQUE = 'Critique';
 var SHEET_CREATE   = 'Create';
 var SHEET_COLLAB   = 'Collab';
+var SHEET_HOTTAKES = 'HotTakes';
 
 // ── doGet — health-check endpoint ────────────────────────────────────────────
 /**
@@ -33,13 +35,16 @@ function doGet(e) {
  * doPost: receive FormData POST from the submission forms, validate, append row.
  *
  * Fields are read from e.parameter (multipart/form-data, no preflight):
- *   formType: 'critique' | 'create' | 'collab'
+ *   formType: 'critique' | 'create' | 'collab' | 'hottake'
  *
  * critique / create fields:
  *   name, email, path, option, claim, evidence, link, ethics, reflection
  *
  * collab fields:
  *   name, email, claim, templateLink, changelog, remixLink, ethics, reflection
+ *
+ * hottake fields:
+ *   name, take
  */
 function doPost(e) {
   try {
@@ -54,6 +59,8 @@ function doPost(e) {
       appendCreateRow(data);
     } else if (formType === 'collab') {
       appendCollabRow(data);
+    } else if (formType === 'hottake') {
+      appendHotTakeRow(data);
     } else {
       return jsonResponse({ status: 'error', message: 'Unknown formType: ' + formType });
     }
@@ -144,6 +151,26 @@ function appendCollabRow(data) {
   sheet.appendRow([timestamp, name, claim, templateLink, changelog, remixLink, ethics, reflection]);
 }
 
+/**
+ * Append a row to the HotTakes sheet.
+ *
+ * Columns: Timestamp | Name | Hot Take
+ */
+function appendHotTakeRow(data) {
+  var ss    = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SHEET_HOTTAKES);
+
+  if (!sheet) {
+    throw new Error('Sheet "' + SHEET_HOTTAKES + '" not found. Please run setupSheets() first.');
+  }
+
+  var timestamp = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
+  var name      = sanitize(data.name) || 'Anonymous';
+  var take      = sanitize(data.take);
+
+  sheet.appendRow([timestamp, name, take]);
+}
+
 // ── Utilities ─────────────────────────────────────────────────────────────────
 
 /**
@@ -167,7 +194,7 @@ function jsonResponse(obj) {
 // ── Sheet setup helper (run once manually from Apps Script editor) ─────────────
 
 /**
- * setupSheets: Creates the three sheets with header rows if they don't exist.
+ * setupSheets: Creates the four sheets with header rows if they don't exist.
  * Run this function ONCE from the Apps Script editor after pasting this code.
  * Do NOT deploy this as the web app entry point.
  */
@@ -217,6 +244,17 @@ function setupSheets() {
     ]);
     collab.getRange(1, 1, 1, 8).setFontWeight('bold');
     collab.setFrozenRows(1);
+  }
+
+  // Sheet 4: HotTakes
+  var hotTakes = ss.getSheetByName(SHEET_HOTTAKES);
+  if (!hotTakes) {
+    hotTakes = ss.insertSheet(SHEET_HOTTAKES);
+  }
+  if (hotTakes.getLastRow() === 0) {
+    hotTakes.appendRow(['Timestamp', 'Name', 'Hot Take']);
+    hotTakes.getRange(1, 1, 1, 3).setFontWeight('bold');
+    hotTakes.setFrozenRows(1);
   }
 
   Logger.log('Sheets set up successfully.');

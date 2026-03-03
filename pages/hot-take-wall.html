@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Drop a one-sentence hot take on AI in evaluation. No form, no rubric — just your unfiltered opinion.">
+  <title>Hot Take Wall — AEA/MTI Hackathon 2</title>
+  <link rel="stylesheet" href="assets/brand/brand.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    /* ── Hot Take Wall page-specific styles ─────────────────────────────── */
+    .htw-hero {
+      background: var(--color-dark);
+      color: var(--color-white);
+      padding-block: var(--space-2xl);
+      text-align: center;
+    }
+    .htw-hero__icon {
+      display: block;
+      font-size: 3rem;
+      margin-bottom: var(--space-sm);
+    }
+    .htw-hero__title {
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: var(--space-md);
+    }
+    .htw-hero__subtitle {
+      font-size: var(--text-lg);
+      color: rgba(255,255,255,0.7);
+      max-width: 50ch;
+      margin-inline: auto;
+      line-height: 1.6;
+    }
+    @media (min-width: 768px) {
+      .htw-hero__title { font-size: var(--text-5xl); }
+    }
+
+    /* ── Submit form ─────────────────────────────────────────────────────── */
+    .htw-form-section {
+      background: var(--color-white);
+      padding-block: var(--space-2xl);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .htw-form-wrap {
+      max-width: 600px;
+    }
+    .htw-form-wrap .section-heading {
+      margin-bottom: var(--space-xs);
+    }
+    .htw-form-wrap > p {
+      color: var(--color-muted);
+      font-size: var(--text-sm);
+      margin-bottom: var(--space-lg);
+    }
+    .htw-textarea {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.6;
+      padding: var(--space-md);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius);
+      resize: vertical;
+      min-height: 90px;
+      transition: border-color var(--transition-fast);
+      margin-bottom: var(--space-xs);
+    }
+    .htw-textarea:focus {
+      outline: none;
+      border-color: var(--color-coral);
+    }
+    .htw-form-row {
+      display: flex;
+      gap: var(--space-md);
+      align-items: flex-end;
+      flex-wrap: wrap;
+      margin-top: var(--space-md);
+    }
+    .htw-form-row .form-group {
+      flex: 1;
+      min-width: 180px;
+      margin: 0;
+    }
+    .htw-submit-wrap {
+      display: flex;
+      align-items: flex-end;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      margin-top: var(--space-md);
+    }
+
+    /* ── Success / error banners ─────────────────────────────────────────── */
+    .htw-banner {
+      padding: var(--space-md) var(--space-lg);
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: var(--text-sm);
+      display: none;
+      margin-bottom: var(--space-md);
+    }
+    .htw-banner--success {
+      background: rgba(115, 220, 138, 0.12);
+      border: 1px solid var(--color-create);
+      color: var(--color-text);
+    }
+    .htw-banner--error {
+      background: rgba(252, 98, 79, 0.1);
+      border: 1px solid var(--color-critique);
+      color: var(--color-text);
+    }
+    .htw-banner.is-visible { display: block; }
+
+    /* ── Wall section ────────────────────────────────────────────────────── */
+    .htw-wall-section {
+      background: var(--color-dark);
+      color: var(--color-white);
+      padding-block: var(--space-2xl);
+      min-height: 400px;
+    }
+    .htw-wall-section .section-heading {
+      margin-bottom: var(--space-xs);
+    }
+    .htw-wall-meta {
+      font-size: var(--text-sm);
+      color: rgba(255,255,255,0.45);
+      margin-bottom: var(--space-xl);
+    }
+    .htw-wall-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+    @media (min-width: 560px) {
+      .htw-wall-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .htw-wall-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* Individual hot-take card */
+    .htw-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-left: 4px solid var(--color-coral);
+      border-radius: var(--radius);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .htw-card__flame {
+      font-size: var(--text-lg);
+      line-height: 1;
+    }
+    .htw-card__text {
+      font-size: var(--text-base);
+      font-weight: 600;
+      line-height: 1.5;
+      color: var(--color-white);
+      flex: 1;
+    }
+    .htw-card__meta {
+      font-size: var(--text-xs);
+      color: rgba(255,255,255,0.4);
+    }
+    .htw-card__name {
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* Empty / loading states */
+    .htw-wall-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: rgba(255,255,255,0.3);
+      font-size: var(--text-lg);
+      padding-block: var(--space-2xl);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================================================================
+       HEADER / NAV
+       ====================================================================== -->
+  <header class="site-header">
+    <div class="container">
+      <div class="cobrand-logos">
+        <a href="index.html" class="logo-link logo-link--merl" aria-label="MERL Tech — Home">
+          <img src="assets/brand/MTI%20black%20w%20color%20horizontal%20(5).png" alt="The MERL Tech Initiative logo">
+        </a>
+        <div class="cobrand-divider" aria-hidden="true"></div>
+        <a href="https://www.eval.org" class="logo-link logo-link--aea" aria-label="American Evaluation Association" target="_blank" rel="noopener">
+          <img src="assets/brand/AEA letters.png" alt="American Evaluation Association logo">
+        </a>
+      </div>
+
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav">
+        <span class="hamburger" aria-hidden="true"></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="critique.html">Critique</a>
+        <a href="create.html">Create</a>
+        <a href="collab.html">Collab</a>
+        <a href="gallery.html" class="nav-cta">Open Gallery</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Breadcrumb / back nav -->
+    <div class="back-nav-wrap">
+      <div class="container">
+        <a href="index.html" class="back-nav">
+          <span aria-hidden="true">&larr;</span> Home
+        </a>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         HERO
+         ==================================================================== -->
+    <section class="htw-hero" aria-labelledby="htw-title">
+      <div class="container">
+        <span class="htw-hero__icon" aria-hidden="true">&#128293;</span>
+        <h1 class="htw-hero__title" id="htw-title">Hot Take Wall</h1>
+        <p class="htw-hero__subtitle">
+          Got a strong opinion about AI in evaluation? Drop a one-sentence hot take. No form, no rubric, no peer review. Just your unfiltered take.
+        </p>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SUBMIT FORM
+         ==================================================================== -->
+    <section class="htw-form-section" aria-labelledby="submit-heading">
+      <div class="container">
+        <div class="htw-form-wrap">
+          <h2 class="section-heading" id="submit-heading">Drop your take</h2>
+          <p>Max 140 characters. Names are optional. Spicy opinions encouraged.</p>
+
+          <div class="htw-banner htw-banner--success" id="htw-success" role="alert" aria-live="polite">
+            &#127881; Take posted! It'll appear on the wall in a moment.
+          </div>
+          <div class="htw-banner htw-banner--error" id="htw-error" role="alert" aria-live="polite">
+            Something went wrong. Check your connection and try again.
+          </div>
+
+          <form id="htw-form" novalidate aria-label="Hot take submission">
+            <label for="htw-take" class="sr-only">Your hot take (required)</label>
+            <textarea
+              id="htw-take"
+              name="take"
+              required
+              maxlength="140"
+              rows="3"
+              placeholder="e.g. Evaluators who don't engage with AI tools are going to be less competitive in 5 years, full stop."
+              class="htw-textarea"
+              aria-describedby="htw-counter"
+            ></textarea>
+            <div style="display:flex; justify-content:flex-end;">
+              <span class="char-counter" id="htw-counter" aria-live="polite">0 / 140</span>
+            </div>
+
+            <div class="htw-form-row">
+              <div class="form-group">
+                <label for="htw-name">Your name <span class="optional">(optional)</span></label>
+                <input
+                  type="text"
+                  id="htw-name"
+                  name="name"
+                  maxlength="80"
+                  autocomplete="name"
+                  placeholder="Anonymous"
+                >
+              </div>
+              <div style="padding-bottom: 2px;">
+                <button type="submit" class="btn btn--primary" id="htw-submit-btn">
+                  Post it &#128293;
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         LIVE WALL
+         ==================================================================== -->
+    <section class="htw-wall-section" aria-labelledby="wall-heading" aria-live="polite" aria-atomic="false">
+      <div class="container">
+        <h2 class="section-heading" id="wall-heading">The Wall</h2>
+        <p class="htw-wall-meta" id="htw-wall-meta">Loading takes&hellip;</p>
+        <div class="htw-wall-grid" id="htw-wall-grid">
+          <p class="htw-wall-empty">Loading&hellip;</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="container">
+      <div class="site-footer__grid">
+
+        <div class="site-footer__brand">
+          <div class="site-footer__cobrand">
+            <img src="assets/brand/MTI%20white%20w%20color%20horizontal%20(3).png" alt="The MERL Tech Initiative logo" class="logo-mti">
+            <div class="site-footer__cobrand-divider" aria-hidden="true"></div>
+            <img src="assets/brand/AEA letters.png" alt="American Evaluation Association logo" class="logo-aea">
+          </div>
+          <p class="site-footer__tagline">
+            AEA/MTI Hackathon 2: Critique &bull; Create &bull; Collab<br>
+            A virtual event for evaluation practitioners.
+          </p>
+        </div>
+
+        <div>
+          <p class="site-footer__heading">Paths</p>
+          <ul class="site-footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="critique.html">Critique</a></li>
+            <li><a href="create.html">Create</a></li>
+            <li><a href="collab.html">Collab</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="site-footer__heading">Connect</p>
+          <ul class="site-footer__links">
+            <li><a href="gallery.html">Open Gallery</a></li>
+            <li><a href="hot-take-wall.html">Hot Take Wall</a></li>
+            <!-- PLACEHOLDER: replace [SLACK_URL] with your Slack channel URL -->
+            <li><a href="[SLACK_URL]" target="_blank" rel="noopener">Join the Slack</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="site-footer__bottom">
+        Co-hosted by the American Evaluation Association &amp; MTI/MERL Tech.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Config ───────────────────────────────────────────────────────────────
+    const APPS_SCRIPT_URL       = 'https://script.google.com/macros/s/AKfycbxdF0DkBRywQeJczXI_vLa8pYHtuxY00OadEdFDWurThEYk5gfU_sdBZC5RpJc9IhrIxQ/exec';
+    // PLACEHOLDER: replace with the published CSV URL for the HotTakes sheet tab
+    const SHEET_CSV_URL_HOTTAKES = '[SHEET_CSV_URL_HOTTAKES]';
+
+    const REFRESH_INTERVAL_MS = 30000; // 30 seconds
+
+    // ── DOM refs ─────────────────────────────────────────────────────────────
+    const form      = document.getElementById('htw-form');
+    const takeInput = document.getElementById('htw-take');
+    const nameInput = document.getElementById('htw-name');
+    const submitBtn = document.getElementById('htw-submit-btn');
+    const successEl = document.getElementById('htw-success');
+    const errorEl   = document.getElementById('htw-error');
+    const wallGrid  = document.getElementById('htw-wall-grid');
+    const wallMeta  = document.getElementById('htw-wall-meta');
+    const counter   = document.getElementById('htw-counter');
+
+    // ── Character counter ────────────────────────────────────────────────────
+    takeInput.addEventListener('input', () => {
+      const len = takeInput.value.length;
+      counter.textContent = `${len} / 140`;
+      counter.className = 'char-counter' + (len >= 140 ? ' danger' : len >= 119 ? ' warning' : '');
+    });
+
+    // ── Form submit ──────────────────────────────────────────────────────────
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const take = takeInput.value.trim();
+      if (!take) {
+        takeInput.focus();
+        return;
+      }
+
+      successEl.classList.remove('is-visible');
+      errorEl.classList.remove('is-visible');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Posting…';
+
+      const fd = new FormData();
+      fd.append('formType', 'hottake');
+      fd.append('name',     nameInput.value.trim() || 'Anonymous');
+      fd.append('take',     take);
+
+      try {
+        await fetch(APPS_SCRIPT_URL, { method: 'POST', body: fd, mode: 'no-cors' });
+        takeInput.value = '';
+        nameInput.value = '';
+        counter.textContent = '0 / 140';
+        counter.className = 'char-counter';
+        successEl.classList.add('is-visible');
+        // Refresh wall after a short delay to give the sheet time to update
+        setTimeout(loadWall, 2000);
+      } catch (err) {
+        errorEl.classList.add('is-visible');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Post it 🔥';
+      }
+    });
+
+    // ── CSV parser (naive but sufficient — no embedded newlines in takes) ────
+    function parseCSV(text) {
+      const lines = text.trim().split('\n');
+      return lines.slice(1).map(line => {
+        // Split on comma, but respect quoted fields
+        const cols = [];
+        let cur = '';
+        let inQuote = false;
+        for (let i = 0; i < line.length; i++) {
+          const ch = line[i];
+          if (ch === '"') {
+            if (inQuote && line[i + 1] === '"') { cur += '"'; i++; }
+            else { inQuote = !inQuote; }
+          } else if (ch === ',' && !inQuote) {
+            cols.push(cur); cur = '';
+          } else {
+            cur += ch;
+          }
+        }
+        cols.push(cur);
+        return cols;
+      }).filter(cols => cols.length >= 3 && cols[2].trim());
+    }
+
+    // ── Render wall ──────────────────────────────────────────────────────────
+    function renderWall(rows) {
+      wallGrid.innerHTML = '';
+
+      if (rows.length === 0) {
+        const empty = document.createElement('p');
+        empty.className = 'htw-wall-empty';
+        empty.textContent = 'No takes yet. Be the first.';
+        wallGrid.appendChild(empty);
+        wallMeta.textContent = 'No takes yet.';
+        return;
+      }
+
+      // Newest first (rows are oldest-first from the sheet)
+      const sorted = [...rows].reverse();
+      wallMeta.textContent = `${sorted.length} take${sorted.length === 1 ? '' : 's'} — refreshes every 30 seconds`;
+
+      sorted.forEach(cols => {
+        const timestamp = cols[0] || '';
+        const name      = cols[1] || 'Anonymous';
+        const take      = cols[2] || '';
+
+        const card = document.createElement('article');
+        card.className = 'htw-card';
+
+        const flame = document.createElement('span');
+        flame.className = 'htw-card__flame';
+        flame.setAttribute('aria-hidden', 'true');
+        flame.textContent = '🔥';
+
+        const text = document.createElement('p');
+        text.className = 'htw-card__text';
+        text.textContent = '\u201c' + take + '\u201d';
+
+        const meta = document.createElement('p');
+        meta.className = 'htw-card__meta';
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'htw-card__name';
+        nameSpan.textContent = name;
+        meta.appendChild(nameSpan);
+        if (timestamp) {
+          meta.append(document.createTextNode(' \u00b7 ' + timestamp));
+        }
+
+        card.appendChild(flame);
+        card.appendChild(text);
+        card.appendChild(meta);
+        wallGrid.appendChild(card);
+      });
+    }
+
+    // ── Fetch and load wall ──────────────────────────────────────────────────
+    async function loadWall() {
+      if (SHEET_CSV_URL_HOTTAKES === '[SHEET_CSV_URL_HOTTAKES]') {
+        wallGrid.innerHTML = '<p class="htw-wall-empty">Wall coming soon &mdash; check back after launch.</p>';
+        wallMeta.textContent = 'Not yet connected.';
+        return;
+      }
+      try {
+        const url  = SHEET_CSV_URL_HOTTAKES + '&t=' + Date.now();
+        const resp = await fetch(url);
+        const text = await resp.text();
+        const rows = parseCSV(text);
+        renderWall(rows);
+      } catch (err) {
+        if (wallGrid.children.length === 0 || wallGrid.querySelector('.htw-wall-empty')) {
+          wallGrid.innerHTML = '<p class="htw-wall-empty">Couldn\u2019t load takes. Will retry\u2026</p>';
+        }
+        wallMeta.textContent = 'Connection error — retrying…';
+      }
+    }
+
+    // ── Init ─────────────────────────────────────────────────────────────────
+    loadWall();
+    setInterval(loadWall, REFRESH_INTERVAL_MS);
+
+    // ── Nav toggle ────────────────────────────────────────────────────────────
+    const toggle = document.querySelector('.nav-toggle');
+    const nav    = document.getElementById('site-nav');
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      nav.classList.toggle('is-open');
+    });
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        nav.classList.remove('is-open');
+      });
+    });
+  </script>
+
+</body>
+</html>
