@@ -11,13 +11,13 @@
 // ============================================================================
 
 // Critique sheet — gviz JSON feed (supports CORS, no CSV CORB issues)
-const SHEET_GVIZ_URL_CRITIQUE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQtSDpjQqmc5_9FpqUhmw4oaZ6iUhZdmoGZtsUifVXvjFs_VELMUfg_yNSNflo49QX_PmQ7FCmusjf-/gviz/tq?tqx=out:json&gid=1091433995';
+const SHEET_GVIZ_URL_CRITIQUE = 'https://docs.google.com/spreadsheets/d/1jbMsChNJ9OQzOXdqRRzhLrFh2NPbAqpfKBy_5pkE_QE/gviz/tq?tqx=out:json&gid=1091433995';
 
 // Create sheet
-const SHEET_GVIZ_URL_CREATE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQtSDpjQqmc5_9FpqUhmw4oaZ6iUhZdmoGZtsUifVXvjFs_VELMUfg_yNSNflo49QX_PmQ7FCmusjf-/gviz/tq?tqx=out:json&gid=1317074835';
+const SHEET_GVIZ_URL_CREATE = 'https://docs.google.com/spreadsheets/d/1jbMsChNJ9OQzOXdqRRzhLrFh2NPbAqpfKBy_5pkE_QE/gviz/tq?tqx=out:json&gid=1317074835';
 
 // Collab sheet
-const SHEET_GVIZ_URL_COLLAB = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQtSDpjQqmc5_9FpqUhmw4oaZ6iUhZdmoGZtsUifVXvjFs_VELMUfg_yNSNflo49QX_PmQ7FCmusjf-/gviz/tq?tqx=out:json&gid=2115396050';
+const SHEET_GVIZ_URL_COLLAB = 'https://docs.google.com/spreadsheets/d/1jbMsChNJ9OQzOXdqRRzhLrFh2NPbAqpfKBy_5pkE_QE/gviz/tq?tqx=out:json&gid=2115396050';
 
 // How often to poll for new submissions (milliseconds)
 const REFRESH_INTERVAL_MS = 60_000;
