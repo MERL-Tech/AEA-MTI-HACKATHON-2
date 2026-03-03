@@ -356,7 +356,7 @@
     // ── Config ───────────────────────────────────────────────────────────────
     const APPS_SCRIPT_URL       = 'https://script.google.com/macros/s/AKfycbxdF0DkBRywQeJczXI_vLa8pYHtuxY00OadEdFDWurThEYk5gfU_sdBZC5RpJc9IhrIxQ/exec';
     // PLACEHOLDER: replace with the published CSV URL for the HotTakes sheet tab
-    const SHEET_CSV_URL_HOTTAKES = '[SHEET_CSV_URL_HOTTAKES]';
+    const SHEET_CSV_URL_HOTTAKES = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQtSDpjQqmc5_9FpqUhmw4oaZ6iUhZdmoGZtsUifVXvjFs_VELMUfg_yNSNflo49QX_PmQ7FCmusjf-/pub?gid=842255866&single=true&output=csv';
 
     const REFRESH_INTERVAL_MS = 30000; // 30 seconds
 
@@ -492,7 +492,7 @@
 
     // ── Fetch and load wall ──────────────────────────────────────────────────
     async function loadWall() {
-      if (SHEET_CSV_URL_HOTTAKES === '[SHEET_CSV_URL_HOTTAKES]') {
+      if (SHEET_CSV_URL_HOTTAKES === 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQtSDpjQqmc5_9FpqUhmw4oaZ6iUhZdmoGZtsUifVXvjFs_VELMUfg_yNSNflo49QX_PmQ7FCmusjf-/pub?gid=842255866&single=true&output=csv') {
         wallGrid.innerHTML = '<p class="htw-wall-empty">Wall coming soon &mdash; check back after launch.</p>';
         wallMeta.textContent = 'Not yet connected.';
         return;
