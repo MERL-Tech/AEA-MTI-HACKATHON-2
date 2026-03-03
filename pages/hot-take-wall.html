@@ -425,6 +425,19 @@
       ).filter(cols => cols.length >= 3 && cols[2].trim());
     }
 
+    // ── Timestamp formatter ───────────────────────────────────────────────────
+    // gviz returns datetimes as "Date(2026,2,3,18,26,28)" — convert to readable.
+    function formatGvizDate(ts) {
+      const m = typeof ts === 'string' && ts.match(/^Date\((\d+),(\d+),(\d+)(?:,(\d+),(\d+),(\d+))?\)$/);
+      if (m) {
+        const d = new Date(+m[1], +m[2], +m[3], +(m[4]||0), +(m[5]||0), +(m[6]||0));
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+      // Fallback: already a plain string (e.g. from Apps Script toLocaleString)
+      const d = new Date(ts);
+      return isNaN(d) ? ts : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
     // ── Render wall ──────────────────────────────────────────────────────────
     function renderWall(rows) {
       wallGrid.innerHTML = '';
@@ -466,7 +479,7 @@
         nameSpan.textContent = name;
         meta.appendChild(nameSpan);
         if (timestamp) {
-          meta.append(document.createTextNode(' \u00b7 ' + timestamp));
+          meta.append(document.createTextNode(' \u00b7 ' + formatGvizDate(timestamp)));
         }
 
         card.appendChild(flame);
