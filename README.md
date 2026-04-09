@@ -3,7 +3,7 @@
 A fully virtual, low-barrier hackathon for evaluation practitioners exploring AI in evaluation practice. Co-hosted by the **American Evaluation Association (AEA)** and **MTI/MERL Tech**.
 
 <!-- PLACEHOLDER: replace [STAGING_URL] with your GitHub Pages URL after enabling Pages in repo Settings -->
-**Staging URL:** [STAGING_URL]
+**Staging URL:** [https://merl-tech.github.io/AEA-MTI-HACKATHON-2/]
 
 ---
 
