@@ -231,15 +231,31 @@
         <span class="htw-hero__icon" aria-hidden="true">&#128293;</span>
         <h1 class="htw-hero__title" id="htw-title">Hot Take Wall</h1>
         <p class="htw-hero__subtitle">
-          Got a strong opinion about AI in evaluation? Drop a one-sentence hot take. No form, no rubric, no peer review. Just your unfiltered take.
+          See what evaluation practitioners are saying about AI — then drop your own take if you're inspired.
         </p>
+        <div style="margin-top: var(--space-lg);">
+          <a href="#add-take" class="btn btn--primary">Add your hot take &#128293;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         LIVE WALL
+         ==================================================================== -->
+    <section class="htw-wall-section" aria-labelledby="wall-heading" aria-live="polite" aria-atomic="false">
+      <div class="container">
+        <h2 class="section-heading" id="wall-heading">The Wall</h2>
+        <p class="htw-wall-meta" id="htw-wall-meta">Loading takes&hellip;</p>
+        <div class="htw-wall-grid" id="htw-wall-grid">
+          <p class="htw-wall-empty">Loading&hellip;</p>
+        </div>
       </div>
     </section>
 
     <!-- ====================================================================
          SUBMIT FORM
          ==================================================================== -->
-    <section class="htw-form-section" aria-labelledby="submit-heading">
+    <section class="htw-form-section" id="add-take" aria-labelledby="submit-heading">
       <div class="container">
         <div class="htw-form-wrap">
           <h2 class="section-heading" id="submit-heading">Drop your take</h2>
@@ -287,19 +303,6 @@
               </div>
             </div>
           </form>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         LIVE WALL
-         ==================================================================== -->
-    <section class="htw-wall-section" aria-labelledby="wall-heading" aria-live="polite" aria-atomic="false">
-      <div class="container">
-        <h2 class="section-heading" id="wall-heading">The Wall</h2>
-        <p class="htw-wall-meta" id="htw-wall-meta">Loading takes&hellip;</p>
-        <div class="htw-wall-grid" id="htw-wall-grid">
-          <p class="htw-wall-empty">Loading&hellip;</p>
         </div>
       </div>
     </section>
